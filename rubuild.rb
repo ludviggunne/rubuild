@@ -119,10 +119,12 @@ module Rubuild
                     dep.add_include_dir(dir)
                 end
             end
+            return self
         end
 
         def link_system_lib(lib)
             @system_libs.push(lib)
+            return self
         end
 
         def clean
