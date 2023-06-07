@@ -82,19 +82,39 @@ module Rubuild
 
     def output_dot_file(root_target, output_path)
         jobstack = create_job_stack(root_target)
+        syslibs = Array.new
+
+        jobstack.each do |target|
+            if target.respond_to? :system_libs
+                target.system_libs.each do |lib|
+                    syslibs.delete lib
+                    syslibs.push lib
+                end
+            end
+        end
 
         File.open(output_path, "w:UTF-8") { |file| 
-            str = "graph DependencyTree {\n"
+
+            str = "digraph DependencyTree {\n"
 
             jobstack.each do |target|
                 str += "    \"#{target.output}\"[]\n"
+            end
+
+            syslibs.each do |lib|
+                str += "    \"#{lib}\"\n"
             end
 
             str += "\n"
 
             jobstack.each do |target|
                 target.dependencies.each do |dep|
-                    str += "    \"#{target.output}\" -- \"#{dep.output}\"[]\n"
+                    str += "    \"#{dep.output}\" -> \"#{target.output}\"[]\n"
+                end
+                if target.respond_to? :system_libs
+                    target.system_libs.each do |lib|
+                        str += "    \"#{lib}\" -> \"#{target.output}\"\n"
+                    end
                 end
             end
             str += "}"
@@ -114,6 +134,7 @@ module Rubuild
         attr_reader :output
         attr_accessor :dependencies
         attr_reader :name
+        attr_reader :system_libs
 
         def initialize
             @dependencies = Array.new
