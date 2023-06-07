@@ -1,0 +1,12 @@
+graph DependencyTree {
+    "build/main"[]
+    "build/lib.so"[]
+    "int/lib.o"[]
+    "int/other.o"[]
+    "int/main.o"[]
+
+    "build/main" -- "int/main.o"[]
+    "build/main" -- "int/other.o"[]
+    "build/main" -- "build/lib.so"[]
+    "build/lib.so" -- "int/lib.o"[]
+}

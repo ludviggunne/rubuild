@@ -80,11 +80,34 @@ module Rubuild
         return lib
     end
 
+    def output_dot_file(root_target, output_path)
+        jobstack = create_job_stack(root_target)
+
+        File.open(output_path, "w:UTF-8") { |file| 
+            str = "graph DependencyTree {\n"
+
+            jobstack.each do |target|
+                str += "    \"#{target.output}\"[]\n"
+            end
+
+            str += "\n"
+
+            jobstack.each do |target|
+                target.dependencies.each do |dep|
+                    str += "    \"#{target.output}\" -- \"#{dep.output}\"[]\n"
+                end
+            end
+            str += "}"
+            file.write(str)
+        }
+    end
+
     module_function :build_target
     module_function :strip
     module_function :create_job_stack
     module_function :create_executable
     module_function :create_static_library
+    module_function :output_dot_file
 
     # Common functionality for targets
     class Target

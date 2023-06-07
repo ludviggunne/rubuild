@@ -11,3 +11,4 @@ main.add_include_dir('lib')
 main.add_dependency(lib)
 
 Rubuild::build_target(main)
+Rubuild::output_dot_file(main, "graph.dot")
