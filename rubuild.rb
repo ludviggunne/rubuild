@@ -113,6 +113,7 @@ module Rubuild
     class Target
         attr_reader :output
         attr_accessor :dependencies
+        attr_reader :name
 
         def initialize
             @dependencies = Array.new
@@ -163,7 +164,8 @@ module Rubuild
         def initialize(source, output = '.')
             super()
             @source = source
-            @output = "#{output}/#{Rubuild::strip(source)}.o"
+            @name = Rubuild::strip(source)
+            @output = "#{output}/#{@name}.o"
             discard_err = `mkdir #{output} 2>&1`
         end
 
