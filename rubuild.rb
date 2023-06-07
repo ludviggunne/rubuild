@@ -98,7 +98,7 @@ module Rubuild
             str = "digraph DependencyTree {\n"
 
             jobstack.each do |target|
-                str += "    \"#{target.output}\"[]\n"
+                str += "    \"#{target.output}\"\n"
             end
 
             syslibs.each do |lib|
@@ -109,7 +109,7 @@ module Rubuild
 
             jobstack.each do |target|
                 target.dependencies.each do |dep|
-                    str += "    \"#{dep.output}\" -> \"#{target.output}\"[]\n"
+                    str += "    \"#{dep.output}\" -> \"#{target.output}\"\n"
                 end
                 if target.respond_to? :system_libs
                     target.system_libs.each do |lib|

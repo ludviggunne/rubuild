@@ -1,14 +1,14 @@
 digraph DependencyTree {
-    "build/main"[]
-    "build/lib.so"[]
-    "int/lib.o"[]
-    "int/other.o"[]
-    "int/main.o"[]
-    "glfw"
+    "build/main"
+    "build/lib.so"
+    "int/lib.o"
+    "int/other.o"
+    "int/main.o"
+    "m"
 
-    "int/main.o" -> "build/main"[]
-    "int/other.o" -> "build/main"[]
-    "build/lib.so" -> "build/main"[]
-    "glfw" -> "build/main"
-    "int/lib.o" -> "build/lib.so"[]
+    "int/main.o" -> "build/main"
+    "int/other.o" -> "build/main"
+    "build/lib.so" -> "build/main"
+    "m" -> "build/main"
+    "int/lib.o" -> "build/lib.so"
 }
