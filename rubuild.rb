@@ -183,7 +183,7 @@ module Rubuild
 
             bins = @dependencies.map { |dep| dep.output }
             syslibs = @system_libs.map { |lib| "-l#{lib}" }
-            `gcc #{bins.join(' ')} #{syslibs.join(' ')}-o #{@output}`
+            `gcc #{bins.join(' ')} #{syslibs.join(' ')} -o #{@output}`
         end
     end
 
