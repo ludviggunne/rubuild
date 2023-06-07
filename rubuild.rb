@@ -1,8 +1,6 @@
 
 module Rubuild
 
-    targets = {}
-
     def strip(path)
         return path[path.rindex('/') + 1..path.rindex('.') - 1]
     end
@@ -71,13 +69,11 @@ module Rubuild
 
     def create_executable(name, output = '.')
         exe = Executable.new(name, output)
-        targets[name] = exe
         return exe
     end
 
     def create_static_library(name, output = '.')
         lib = StaticLib.new(name, output)
-        targets[name] = lib
         return lib
     end
 
