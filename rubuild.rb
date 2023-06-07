@@ -2,7 +2,10 @@
 module Rubuild
 
     def strip(path)
-        return path[path.rindex('/') + 1..path.rindex('.') - 1]
+
+        i1 = path.rindex('/') || -1
+        i2 = path.rindex('.')
+        return path[i1 + 1..i2 - 1]
     end
 
     def create_job_stack(target)
